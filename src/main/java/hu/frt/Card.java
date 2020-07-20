@@ -16,7 +16,12 @@ public class Card {
         this.suit = suit;
     }
 
-    public  void setValue(ValueOfCard value)
+    public Card(SuitOfCard suit, ValueOfCard value) {
+        this.value = value;
+        this.suit = suit;
+    }
+
+    public void setValue(ValueOfCard value)
     {
         this.value = value;
     }

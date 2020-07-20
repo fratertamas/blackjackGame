@@ -39,5 +39,12 @@ public class CardTest {
         assertEquals(SuitOfCard.LEAVES, new Card(SuitOfCard.LEAVES).getSuit());
     }
 
+    @Test
+    public void testCard(){
+        card = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
+        assertEquals(SuitOfCard.ACORNS, card.getSuit());
+        assertEquals(4, card.getValue().getValue());
+    }
+
 
 }
