@@ -24,9 +24,20 @@ public class CardTest {
     }
     @Test
     public void testValueOfCardGetValue(){
-        Card card1 = new Card((ValueOfCard.NINE));
-        assertEquals(9, card1.getValue().getValue());
+        Card card = new Card((ValueOfCard.NINE));
+        assertEquals(9, card.getValue().getValue());
+        assertEquals(9, ValueOfCard.NINE.getValue());
+        assertEquals(10, new Card(ValueOfCard.TEN).getValue().getValue());
         assertEquals(10, ValueOfCard.TEN.getValue());
     }
+
+    @Test
+    public void testSuitOfCardGetSuit(){
+        assertEquals(SuitOfCard.HEARTS, new Card(SuitOfCard.HEARTS).getSuit());
+        assertEquals(SuitOfCard.BELLS, new Card(SuitOfCard.BELLS).getSuit());
+        assertEquals(SuitOfCard.ACORNS, new Card(SuitOfCard.ACORNS).getSuit());
+        assertEquals(SuitOfCard.LEAVES, new Card(SuitOfCard.LEAVES).getSuit());
+    }
+
 
 }

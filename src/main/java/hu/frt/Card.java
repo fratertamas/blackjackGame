@@ -2,6 +2,7 @@ package hu.frt;
 
 public class Card {
 
+    private SuitOfCard suit;
     private ValueOfCard value;
 
     public Card(){
@@ -10,6 +11,11 @@ public class Card {
     public Card(ValueOfCard value){
         this.value = value;
     }
+
+    public Card(SuitOfCard suit) {
+        this.suit = suit;
+    }
+
     public  void setValue(ValueOfCard value)
     {
         this.value = value;
@@ -20,10 +26,14 @@ public class Card {
         return value;
     }
 
+    public SuitOfCard getSuit(){
+        return suit;
+    }
     @Override
     public String toString() {
         return "Card{" +
-                ", value=" + value +
+                "suit = " + suit +
+                ", value = " + value +
                 '}';
     }
 }
