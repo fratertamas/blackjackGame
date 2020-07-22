@@ -109,4 +109,19 @@ public class PlayerTest {
         assertEquals(21, testPlayer.getScore());
         assertEquals(12, testDealer.getScore());
     }
+
+    @Test
+    public void testCheckNextCard(){
+        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
+        Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN);
+        Card card3 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
+        Card card4 = new Card(SuitOfCard.LEAVES, ValueOfCard.NINE);
+
+        testPlayer.addCard(card1);
+        testPlayer.addCard(card2);
+        testPlayer.addCard(card3);
+        testPlayer.addCard(card4);
+
+        assertEquals(3, testPlayer.getPlayerHand().size());
+    }
 }

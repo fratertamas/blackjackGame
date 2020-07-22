@@ -28,7 +28,15 @@ public class Player {
     }
 
     public void addCard(Card card1) {
-        this.cardList.add(card1);
+        if (!checkCard(card1)) cardList.add(card1);
+    }
+
+    private boolean checkCard(Card card1) {
+        boolean van = false;
+        for (Card card: cardList) {
+            if (card.equals(card1)) van = true;
+        }
+        return van;
     }
 
     public Card getCard(int i) {
