@@ -81,4 +81,32 @@ public class PlayerTest {
 
         assertEquals(4, testPlayer.getPlayerHand().size());
     }
+
+    @Test
+    public void testPlayerGetScore() throws Exception{
+        Card card1 = new Card(SuitOfCard.LEAVES, ValueOfCard.SEVEN);
+        Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.KING);
+        testPlayer.addCard(card1);
+        testPlayer.addCard(card2);
+        assertEquals(11, testPlayer.getScore());
+
+    }
+
+    @Test
+    public void testPlayersGetScore() throws Exception{
+        Player testDealer = new Player("Dealer", 10000);
+
+        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
+        Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.TEN);
+        Card card3 = new Card(SuitOfCard.BELLS, ValueOfCard.OBER);
+        Card card4 = new Card(SuitOfCard.LEAVES, ValueOfCard.NINE);
+
+        testPlayer.addCard(card1);
+        testPlayer.addCard(card2);
+        testDealer.addCard(card3);
+        testDealer.addCard(card4);
+
+        assertEquals(21, testPlayer.getScore());
+        assertEquals(12, testDealer.getScore());
+    }
 }

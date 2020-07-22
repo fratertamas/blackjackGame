@@ -7,6 +7,7 @@ public class Player {
     private String name;
     private int money;
     List<Card> cardList = new ArrayList<>();
+    private int score;
 
     public Player(String name, int money) {
         this.name = name;
@@ -32,5 +33,13 @@ public class Player {
 
     public Card getCard(int i) {
         return cardList.get(i);
+    }
+
+    public int getScore() {
+        int score = 0;
+        for (Card card: cardList) {
+            score += card.getValue().getValue();
+        }
+        return score;
     }
 }
