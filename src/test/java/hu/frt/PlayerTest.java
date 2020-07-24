@@ -36,6 +36,13 @@ public class PlayerTest {
     public void  testGetMoney() throws Exception{
         assertEquals(2000, testPlayer.getMoney());
     }
+
+    @Test
+    public void testSetMoney() throws Exception{
+        testPlayer.setMoney(2500);
+        assertEquals(2500, testPlayer.getMoney());
+    }
+
     @Test
     public void testAddCardToPlayerHand() throws Exception {
         Card card1 = new Card(SuitOfCard.BELLS, ValueOfCard.KING);
