@@ -114,7 +114,7 @@ public class GameTest {
 
 
     @Test
-    public void gameTest(){
+    public void testGame(){
         Player tp = new Player("Marci",1000);
         Player dl = new Player("Dealer",11000);
         int bet = 100;
