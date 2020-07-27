@@ -21,11 +21,6 @@ public class Card {
         this.suit = suit;
     }
 
-    public void setValue(ValueOfCard value)
-    {
-        this.value = value;
-    }
-
     public ValueOfCard getValue()
     {
         return value;

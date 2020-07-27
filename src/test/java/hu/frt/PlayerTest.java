@@ -17,34 +17,23 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerCreated() throws Exception {
-        assertNotNull(testPlayer);
-    }
-
-    @Test
-    public void testPlayerAndDealerCreated() throws Exception {
-        Player testDealer = new Player("Dealer", 100000);
-        assertNotSame(testDealer, testPlayer);
-    }
-
-    @Test
-    public void testGetName() throws Exception {
+    public void testGetName() {
         assertEquals("Gyula", testPlayer.getPlayerName());
     }
 
     @Test
-    public void  testGetMoney() throws Exception{
+    public void  testGetMoney(){
         assertEquals(2000, testPlayer.getMoney());
     }
 
     @Test
-    public void testSetMoney() throws Exception{
+    public void testSetMoney(){
         testPlayer.setMoney(2500);
         assertEquals(2500, testPlayer.getMoney());
     }
 
     @Test
-    public void testAddCardToPlayerHand() throws Exception {
+    public void testAddCardToPlayerHand()  {
         Card card1 = new Card(SuitOfCard.BELLS, ValueOfCard.KING);
 
         testPlayer.addCard(card1);
@@ -53,14 +42,14 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetCard() throws Exception{
+    public void testGetCard(){
         Card card = new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN);
         testPlayer.addCard(card);
         assertEquals(card, testPlayer.getCard(0));
     }
 
     @Test
-    public void testGetPlayerHand() throws Exception {
+    public void testGetPlayerHand(){
         Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
         Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.TEN);
 
@@ -75,22 +64,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerHasHand() throws Exception {
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
-        Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.TEN);
-        Card card3 = new Card(SuitOfCard.BELLS, ValueOfCard.OBER);
-        Card card4 = new Card(SuitOfCard.LEAVES, ValueOfCard.NINE);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testPlayer.addCard(card3);
-        testPlayer.addCard(card4);
-
-        assertEquals(4, testPlayer.getPlayerHand().size());
-    }
-
-    @Test
-    public void testPlayerGetScore() throws Exception{
+    public void testPlayerGetScore(){
         Card card1 = new Card(SuitOfCard.LEAVES, ValueOfCard.SEVEN);
         Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.KING);
         testPlayer.addCard(card1);
@@ -100,25 +74,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayersGetScore() throws Exception{
-        Player testDealer = new Player("Dealer", 10000);
-
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
-        Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.TEN);
-        Card card3 = new Card(SuitOfCard.BELLS, ValueOfCard.OBER);
-        Card card4 = new Card(SuitOfCard.LEAVES, ValueOfCard.NINE);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testDealer.addCard(card3);
-        testDealer.addCard(card4);
-
-        assertEquals(21, testPlayer.getScore());
-        assertEquals(12, testDealer.getScore());
-    }
-
-    @Test
-    public void testCheckNextCard(){
+    public void testCheckNextCardAndPlayerHand(){
         Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
         Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN);
         Card card3 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
