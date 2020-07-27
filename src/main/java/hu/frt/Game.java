@@ -3,17 +3,20 @@ package hu.frt;
 public class Game {
 
     public Player getWinner (Player player, Player player2, int bet) {
-        Player winner = calcWinner(player, player2);
+        if (checkBet(player, bet)) {
+            Player winner = calcWinner(player, player2);
 
-        if (winner.equals(player)){
-            player.setMoney(player.getMoney()+bet);
-            player2.setMoney(player2.getMoney()-bet);
-        }else{
-            player.setMoney(player.getMoney()-bet);
-            player2.setMoney(player2.getMoney()+bet);
+            if (winner.equals(player)) {
+                player.setMoney(player.getMoney() + bet);
+                player2.setMoney(player2.getMoney() - bet);
+            } else {
+                player.setMoney(player.getMoney() - bet);
+                player2.setMoney(player2.getMoney() + bet);
+            }
+
+            return winner;
         }
-
-        return winner;
+        return null;
     }
 
     public Player calcWinner(Player player, Player player2) {
@@ -54,12 +57,7 @@ public class Game {
     }
 
 
-    public int checkPlayerBet(Player testPlayer, int bet) {
-        int money = 0;
-        if (testPlayer.getMoney()-bet >= 0){
-            money = testPlayer.getMoney()-bet;
-        }
-
-        return money;
+    public boolean checkBet(Player testPlayer, int bet) {
+        if (testPlayer.getMoney()-bet >= 0) return true; return false;
     }
 }

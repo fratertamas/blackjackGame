@@ -37,11 +37,10 @@ public class GameTest {
     }
 
     @Test
-    public void testMoneyAndPlayerBet() throws Exception{
+    public void testBet() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
-        Player testDealer = new Player("Dealer", 100000);
         int bet = 100;
-        assertEquals(true, game.checkPlayerBet(testPlayer, bet)>=0);
+        assertEquals(true, game.checkBet(testPlayer, bet));
     }
 
     @Test
@@ -115,11 +114,12 @@ public class GameTest {
 
 
     @Test
-    public void getTest(){
+    public void gameTest(){
         Player tp = new Player("Marci",1000);
         Player dl = new Player("Dealer",11000);
         int bet = 100;
-        game.getWinner(tp,dl,bet);
-
+        assertNotNull(game.getWinner(tp,dl,bet));
+        bet = 12000;
+        assertNull(game.getWinner(tp,dl,bet));
     }
 }
