@@ -7,9 +7,7 @@ public class Card {
     private SuitOfCard suit;
     private ValueOfCard value;
 
-    public Card(){
-        this.value = value;
-    }
+
     public Card(ValueOfCard value){
         this.value = value;
     }
