@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DeckOfCardsTest {
 
     DeckOfCards deck = null;
@@ -76,4 +79,17 @@ public class DeckOfCardsTest {
         deck.shuffleDeck();
         assertNotSame(testDeck, deck.getDeck());
     }
+
+    @Test
+    public void assertSameTest() throws Exception {
+        List<String> firstList = Arrays.asList("alma","körte", "mogyoró");
+        List<String> firstListReferenceWithOtherName = firstList;
+        List<String> secondList = Arrays.asList("alma","körte", "mogyoró");
+
+        assertSame(firstList,firstList);
+        assertSame(firstList,firstListReferenceWithOtherName);
+        assertNotSame(firstList,secondList);
+    }
+
+
 }
