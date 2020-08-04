@@ -10,8 +10,8 @@ import java.util.List;
 
 public class DeckOfCardsTest {
 
-    DeckOfCards deck = null;
-    Card[] testDeck;
+    private DeckOfCards deck = null;
+    private Card[] testDeck;
     @Before
     public void init(){
         deck = new DeckOfCards();
