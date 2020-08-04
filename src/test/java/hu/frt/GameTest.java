@@ -5,8 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class GameTest {
-    Game game;
-
+    private Game game;
 
     @Before
     public void init(){
@@ -23,15 +22,10 @@ public class GameTest {
         Player testPlayer = new Player("Gyula", 2000);
         Player testDealer = new Player("Dealer", 100000);
 
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
-        Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.ACE);
-        Card card3 = new Card(SuitOfCard.LEAVES, ValueOfCard.ACE);
-        Card card4 = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testDealer.addCard(card3);
-        testDealer.addCard(card4);
+        testPlayer.addCard(new Card(SuitOfCard.HEARTS, ValueOfCard.ACE));
+        testPlayer.addCard(new Card(SuitOfCard.BELLS, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.KING));
 
         assertEquals(testPlayer, game.calcWinner(testPlayer, testDealer));
     }
@@ -40,7 +34,7 @@ public class GameTest {
     public void testBet() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
         int bet = 100;
-        assertEquals(true, game.checkBet(testPlayer, bet));
+        assertTrue(game.checkBet(testPlayer, bet));
     }
 
     @Test
@@ -49,15 +43,10 @@ public class GameTest {
         Player testDealer = new Player("Dealer", 100000);
         int bet = 1000;
 
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
-        Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.ACE);
-        Card card3 = new Card(SuitOfCard.LEAVES, ValueOfCard.ACE);
-        Card card4 = new Card(SuitOfCard.ACORNS, ValueOfCard.ACE);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testDealer.addCard(card3);
-        testDealer.addCard(card4);
+        testPlayer.addCard(new Card(SuitOfCard.HEARTS, ValueOfCard.ACE));
+        testPlayer.addCard(new Card(SuitOfCard.BELLS, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.ACE));
 
         assertEquals(testPlayer, game.getWinner(testPlayer, testDealer, bet));
         assertEquals(3000,testPlayer.getMoney());
@@ -69,49 +58,32 @@ public class GameTest {
         Player testDealer = new Player("Dealer", 100000);
         int bet = 1000;
 
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
-        Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.OBER);
-        Card card3 = new Card(SuitOfCard.LEAVES, ValueOfCard.ACE);
-        Card card4 = new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN);
-        Card card5 = new Card(SuitOfCard.LEAVES, ValueOfCard.NINE);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testDealer.addCard(card3);
-        testDealer.addCard(card4);
-        testPlayer.addCard(card5);
+        testPlayer.addCard(new Card(SuitOfCard.HEARTS, ValueOfCard.ACE));
+        testPlayer.addCard(new Card(SuitOfCard.BELLS, ValueOfCard.OBER));
+        testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.NINE));
 
         assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
-
     }
+
     @Test
     public void testPlayerHandSizeMoreThenFive() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
         Player testDealer = new Player("Dealer", 100000);
         int bet = 1000;
 
-        Card card1 = new Card(SuitOfCard.HEARTS, ValueOfCard.UNTER);
-        Card card2 = new Card(SuitOfCard.BELLS, ValueOfCard.OBER);
-        Card card3 = new Card(SuitOfCard.LEAVES, ValueOfCard.ACE);
-        Card card4 = new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN);
-        Card card5 = new Card(SuitOfCard.LEAVES, ValueOfCard.UNTER);
-        Card card6 = new Card(SuitOfCard.LEAVES, ValueOfCard.KING);
-        Card card7 = new Card(SuitOfCard.ACORNS, ValueOfCard.UNTER);
-        Card card8 = new Card(SuitOfCard.LEAVES, ValueOfCard.OBER);
-
-        testPlayer.addCard(card1);
-        testPlayer.addCard(card2);
-        testDealer.addCard(card3);
-        testDealer.addCard(card4);
-        testPlayer.addCard(card5);
-        testPlayer.addCard(card8);
-        testPlayer.addCard(card7);
-        testPlayer.addCard(card6);
+        testPlayer.addCard(new Card(SuitOfCard.HEARTS, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.BELLS, ValueOfCard.OBER));
+        testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.KING));
+        testPlayer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.OBER));
 
         assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
-
     }
-
 
     @Test
     public void testGame(){
