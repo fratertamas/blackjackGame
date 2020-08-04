@@ -3,7 +3,7 @@ package hu.frt;
 public class Game {
 
     public Player getWinner (Player player, Player player2, int bet) {
-        if (checkBet(player, bet)) {
+        if (checkBet(player, bet) && checkBet(player2, bet)) {
             Player winner = calcWinner(player, player2);
 
             if (winner.equals(player)) {
