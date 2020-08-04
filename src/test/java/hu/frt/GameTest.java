@@ -13,11 +13,6 @@ public class GameTest {
     }
 
     @Test
-    public void gameNotNull(){
-        assertNotNull(game);
-    }
-
-    @Test
     public void getWinnerPlayerWithTwoAces() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
         Player testDealer = new Player("Dealer", 100000);
