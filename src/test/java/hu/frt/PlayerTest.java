@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class PlayerTest {
-    Player testPlayer = null;
+    private Player testPlayer = null;
 
     @Before
     public void init() {
@@ -23,6 +23,7 @@ public class PlayerTest {
 
     @Test
     public void  testGetMoney(){
+        Player testPlayer = new Player("Feri", 2000);
         assertEquals(2000, testPlayer.getMoney());
     }
 
@@ -31,6 +32,7 @@ public class PlayerTest {
         testPlayer.setMoney(2500);
         assertEquals(2500, testPlayer.getMoney());
     }
+
 
     @Test
     public void testAddCardToPlayerHand()  {
