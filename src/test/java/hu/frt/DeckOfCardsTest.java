@@ -2,11 +2,14 @@ package hu.frt;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class DeckOfCardsTest {
 
@@ -76,8 +79,14 @@ public class DeckOfCardsTest {
 
     @Test
     public void testShuffleDeck() throws Exception {
+        assertTrue(Arrays.equals(testDeck, deck.getDeck()));
         deck.shuffleDeck();
-        assertNotSame(testDeck, deck.getDeck());
+        assertFalse(Arrays.equals(testDeck, deck.getDeck()));
+        Set<Card> cards = new HashSet<Card>();
+        cards.addAll(Arrays.asList(deck.getDeck()));
+        cards.addAll(Arrays.asList(testDeck));
+
+        assertEquals(testDeck.length, cards.size());
     }
 
     @Test

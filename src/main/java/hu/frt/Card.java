@@ -45,6 +45,11 @@ public class Card {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(suit, value);
+    }
+
+    @Override
     public String toString() {
         return "Card{" +
                 "suit = " + suit + ", value = " + value +

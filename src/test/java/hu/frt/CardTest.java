@@ -7,12 +7,6 @@ import org.junit.Test;
 public class CardTest {
 
     @Test
-    public void testValueOfCardGetValue(){
-        assertEquals(9, new Card(ValueOfCard.NINE).getValue().getValue());
-        assertEquals(10, new Card(ValueOfCard.TEN).getValue().getValue());
-    }
-
-    @Test
     public void testSuitOfCardGetSuit(){
         assertEquals(SuitOfCard.HEARTS, new Card(SuitOfCard.HEARTS).getSuit());
         assertEquals(SuitOfCard.BELLS, new Card(SuitOfCard.BELLS).getSuit());
@@ -21,11 +15,18 @@ public class CardTest {
     }
 
     @Test
-    public void testCard(){
-        Card card = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
-        assertEquals(SuitOfCard.ACORNS, card.getSuit());
-        assertEquals(ValueOfCard.KING, card.getValue());
+    public void testNotEqualsCards(){
+        Card card1 = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
+        Card card2 = new Card(SuitOfCard.HEARTS, ValueOfCard.ACE);
+        assertNotEquals(card1,card2);
     }
 
+    @Test
+    public void  testEqualsCards(){
+        Card card1 = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
+        Card card2 = new Card(SuitOfCard.ACORNS, ValueOfCard.KING);
+
+        assertEquals(card1,card2);
+    }
 
 }
