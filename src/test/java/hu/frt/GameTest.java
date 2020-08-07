@@ -13,7 +13,7 @@ public class GameTest {
     }
 
     @Test
-    public void getWinnerPlayerWithTwoAces() throws Exception{
+    public void testCalculateWinnerPlayerWithTwoAces() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
         Player testDealer = new Player("Dealer", 100000);
 
@@ -22,14 +22,14 @@ public class GameTest {
         testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
         testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.KING));
 
-        assertEquals(testPlayer, game.calcWinner(testPlayer, testDealer));
+        assertEquals(testPlayer, game.calculateWinner(testPlayer, testDealer));
     }
 
     @Test
     public void testBet() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
         int bet = 100;
-        assertTrue(game.checkBet(testPlayer, bet));
+        assertTrue(game.hasMoney(testPlayer, bet));
     }
 
     @Test
@@ -78,6 +78,26 @@ public class GameTest {
         testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.OBER));
 
         assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
+    }
+
+    @Test
+    public void testPlayerMoney() throws Exception{
+        Player testPlayer = new Player("Gyula", 2000);
+        Player testDealer = new Player("Dealer", 3000);
+        int bet = 1000;
+
+        testPlayer.addCard(new Card(SuitOfCard.HEARTS, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.BELLS, ValueOfCard.OBER));
+        testDealer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.ACE));
+        testDealer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.SEVEN));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.KING));
+        testPlayer.addCard(new Card(SuitOfCard.ACORNS, ValueOfCard.UNTER));
+        testPlayer.addCard(new Card(SuitOfCard.LEAVES, ValueOfCard.OBER));
+
+        assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
+        assertEquals(4000, testDealer.getMoney());
+        assertEquals(1000, testPlayer.getMoney());
     }
 
     @Test

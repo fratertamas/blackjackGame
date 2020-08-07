@@ -6,14 +6,12 @@ import java.util.List;
 public class Player {
     private String name;
     private int money;
-    List<Card> cardList = new ArrayList<>();
-    private int score;
+    private List<Card> cardList = new ArrayList<>();
 
     public Player(String name, int money) {
         this.name = name;
         this.money = money;
     }
-
 
     public String getPlayerName() {
         return name;
@@ -32,15 +30,11 @@ public class Player {
     }
 
     public void addCard(Card card1) {
-        if (!checkCard(card1)) cardList.add(card1);
+        if (!isCardInHand(card1)) cardList.add(card1);
     }
 
-    private boolean checkCard(Card card1) {
-        boolean van = false;
-        for (Card card: cardList) {
-            if (card.equals(card1)) van = true;
-        }
-        return van;
+    private boolean isCardInHand(Card card1) {
+        return cardList.contains(card1);
     }
 
     public Card getCard(int i) {

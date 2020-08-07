@@ -3,24 +3,28 @@ package hu.frt;
 public class Game {
 
     public Player getWinner (Player player, Player player2, int bet) {
-        if (checkBet(player, bet) && checkBet(player2, bet)) {
-            Player winner = calcWinner(player, player2);
-
-            if (winner.equals(player)) {
-                player.setMoney(player.getMoney() + bet);
-                player2.setMoney(player2.getMoney() - bet);
-            } else {
-                player.setMoney(player.getMoney() - bet);
-                player2.setMoney(player2.getMoney() + bet);
-            }
-
+        if (hasMoney(player, bet) && hasMoney(player2, bet)) {
+            Player winner = calculateWinner(player, player2);
+            setPlayersMoney(player, player2, bet, winner);
             return winner;
         }
         return null;
     }
 
-    public Player calcWinner(Player player, Player player2) {
+    private void setPlayersMoney(Player player, Player player2, int bet, Player winner) {
+        if (winner.equals(player)) {
+            setPlayersMoney(player, player2,  bet);
+        } else {
+            setPlayersMoney(player2, player, bet);
+        }
+    }
 
+    private void setPlayersMoney(Player winner, Player looser, int bet) {
+        winner.setMoney(winner.getMoney()+bet);
+        looser.setMoney(looser.getMoney()-bet);
+    }
+
+    protected Player calculateWinner(Player player, Player player2) {
         Player winner = null;
         DeckOfCards deck = new DeckOfCards();
         deck.shuffleDeck();
@@ -57,7 +61,7 @@ public class Game {
     }
 
 
-    public boolean checkBet(Player testPlayer, int bet) {
-        if (testPlayer.getMoney()-bet >= 0) return true; return false;
+    public boolean hasMoney(Player testPlayer, int bet) {
+        return testPlayer.getMoney()-bet >= 0;
     }
 }
