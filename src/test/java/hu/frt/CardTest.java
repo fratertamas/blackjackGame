@@ -8,10 +8,11 @@ public class CardTest {
 
     @Test
     public void testSuitOfCardGetSuit(){
-        assertEquals(SuitOfCard.HEARTS, new Card(SuitOfCard.HEARTS).getSuit());
-        assertEquals(SuitOfCard.BELLS, new Card(SuitOfCard.BELLS).getSuit());
-        assertEquals(SuitOfCard.ACORNS, new Card(SuitOfCard.ACORNS).getSuit());
-        assertEquals(SuitOfCard.LEAVES, new Card(SuitOfCard.LEAVES).getSuit());
+        ValueOfCard valueDoesNotMatter = ValueOfCard.ACE;
+        assertEquals(SuitOfCard.HEARTS, new Card(SuitOfCard.HEARTS, valueDoesNotMatter).getSuit());
+        assertEquals(SuitOfCard.BELLS, new Card(SuitOfCard.BELLS, valueDoesNotMatter).getSuit());
+        assertEquals(SuitOfCard.ACORNS, new Card(SuitOfCard.ACORNS, valueDoesNotMatter).getSuit());
+        assertEquals(SuitOfCard.LEAVES, new Card(SuitOfCard.LEAVES, valueDoesNotMatter).getSuit());
     }
 
     @Test

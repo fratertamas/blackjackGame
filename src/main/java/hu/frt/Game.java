@@ -5,8 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Game {
-    DeckOfCards deck = new DeckOfCards();
-    List<Card> listDeck = new ArrayList<Card>();
+    protected DeckOfCards deck = new DeckOfCards();
+    protected List<Card> listDeck = new ArrayList<Card>();
+    private Player player1;
+    private Player player2;
+    private Player nextPlayer;
+    private Player winner;
+
     public Game() {
         deck.shuffleDeck();
         uploadListDeck(deck);
@@ -87,5 +92,67 @@ public class Game {
 
     public boolean hasMoney(Player testPlayer, int bet) {
         return testPlayer.getMoney()-bet >= 0;
+    }
+
+    public void startGame(Player player1, Player player2, int bet) {
+        if(!hasMoney(player1,bet) || !hasMoney(player2,bet)){
+            throw new NotEnoughtMonyException();
+        }
+        this.player1 = player1;
+        this.player2 = player2;
+        this.nextPlayer = player1;
+    }
+
+    public Player getNextPlayer() {
+        return nextPlayer;
+    }
+
+    public void pullACard(Player player) {
+        checkPlayer(player);
+        nextCard(player);
+        setNextPlayer(player);
+        calculateWinner(player);
+    }
+
+    private void calculateWinner(Player player) {
+        if(player.getScore() == 22 && player.getPlayerHand().size() == 2){
+            winner = player;
+            nextPlayer = null;
+        }
+    }
+
+    private void setNextPlayer(Player player) {
+        if(player1.isStopped()){
+            nextPlayer = player2;
+        }else{
+            nextPlayer = player1;
+        }
+        if(player.equals(player1)){
+            nextPlayer = player2;
+        }else{
+            nextPlayer = player1;
+        }
+    }
+
+    private void checkPlayer(Player player) {
+        if(winner != null)
+            throw new NoMorePullException();
+        if(!player.equals(getNextPlayer()))
+            throw new WrongPlayerPullACardException();
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public void stopGame(Player player) {
+        if(player.getScore() < 14)
+            throw new PlayerCanNotStopUnderScore14Exception();
+        player.stopGame();
+        setNextPlayer(player);
+    }
+
+    public boolean isSopped(Player player) {
+        return player.isStopped();
     }
 }

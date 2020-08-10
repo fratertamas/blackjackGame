@@ -7,6 +7,7 @@ public class Player {
     private String name;
     private int money;
     private List<Card> cardList = new ArrayList<>();
+    private boolean isStopped;
 
     public Player(String name, int money) {
         this.name = name;
@@ -47,5 +48,13 @@ public class Player {
             score += card.getValue().getValue();
         }
         return score;
+    }
+
+    public void stopGame() {
+        this.isStopped = true;
+    }
+
+    public boolean isStopped() {
+        return isStopped;
     }
 }
