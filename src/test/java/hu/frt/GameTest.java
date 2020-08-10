@@ -99,7 +99,7 @@ public class GameTest {
         assertEquals(4000, testDealer.getMoney());
         assertEquals(1000, testPlayer.getMoney());
     }
-
+/*
     @Test
     public void testGame(){
         Player tp = new Player("Marci",1000);
@@ -108,5 +108,5 @@ public class GameTest {
         assertNotNull(game.getWinner(tp,dl,bet));
         bet = 12000;
         assertNull(game.getWinner(tp,dl,bet));
-    }
+    }*/
 }
