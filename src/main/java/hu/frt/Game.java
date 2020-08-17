@@ -122,7 +122,7 @@ public class Game {
 
     private void calculateWinner(Player player) {
         if (player1.isStopped() && player2.isStopped()){
-            winner = player;
+            winner = (player1.getScore() > player2.getScore()) ? player1 : player2;
             nextPlayer = null;
         }else{
             if(player.getScore() == 22 && player.getPlayerHand().size() == 2){
@@ -148,9 +148,9 @@ public class Game {
                 nextPlayer = player1;
             }
         }
-        if (player1.isStopped() && player2.isStopped()){
+        /*if (player1.isStopped() && player2.isStopped()){
             nextPlayer = (player1.getScore() > player2.getScore()) ? player1 : player2;
-        }
+        }*/
     }
 
     private void checkPlayer(Player player) {

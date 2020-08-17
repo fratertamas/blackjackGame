@@ -250,6 +250,29 @@ public class GameTest {
     }
 
     @Test
+    public void player1WinWhenBothPlayerStopTest(){
+        game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.KING));
+        game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
+        game.listDeck.set(2, new Card(SuitOfCard.ACORNS,ValueOfCard.ACE));
+        game.listDeck.set(3, new Card(SuitOfCard.HEARTS,ValueOfCard.OBER));
+
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.stopGame(player1);
+        game.stopGame(player2);
+
+        assertTrue(game.isSopped(player1));
+        assertTrue(game.isSopped(player2));
+        assertNull(game.getNextPlayer());
+        assertEquals(player1, game.getWinner());
+    }
+
+    @Test
     public void playerWinnerWhenPlayerScoreGreaterThan21Test(){
         game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
         game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.UNTER));
