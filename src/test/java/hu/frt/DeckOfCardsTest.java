@@ -2,7 +2,6 @@ package hu.frt;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,18 +66,18 @@ public class DeckOfCardsTest {
     }
 
     @Test
-    public void testSizeOfDeck() throws Exception {
+    public void testSizeOfDeck(){
         assertEquals(32, deck.sizeOfDeck());
     }
 
     @Test
-    public void testGetDeck() throws  Exception{
+    public void testGetDeck(){
         assertArrayEquals(testDeck,
                 deck.getDeck());
     }
 
     @Test
-    public void testShuffleDeck() throws Exception {
+    public void testShuffleDeck(){
         assertTrue(Arrays.equals(testDeck, deck.getDeck()));
         deck.shuffleDeck();
         assertFalse(Arrays.equals(testDeck, deck.getDeck()));
@@ -99,6 +98,5 @@ public class DeckOfCardsTest {
         assertSame(firstList,firstListReferenceWithOtherName);
         assertNotSame(firstList,secondList);
     }
-
 
 }

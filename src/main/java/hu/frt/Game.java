@@ -1,12 +1,11 @@
 package hu.frt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Game {
     protected DeckOfCards deck = new DeckOfCards();
-    protected List<Card> listDeck = new ArrayList<Card>();
+    protected List<Card> listDeck = new ArrayList<>();
     private Player player1;
     private Player player2;
     private Player nextPlayer;
@@ -22,7 +21,7 @@ public class Game {
             listDeck.add(deck.getDeck()[i]);
         }
     }
-
+/*
     public Player getWinner (Player player, Player player2, int bet) {
         if (hasMoney(player, bet) && hasMoney(player2, bet)) {
             Player winner = calculateWinner(player, player2);
@@ -31,7 +30,8 @@ public class Game {
         }
         return null;
     }
-
+*/
+/*
     private void setPlayersMoney(Player player, Player player2, int bet, Player winner) {
         if (winner.equals(player)) {
             setPlayersMoney(player, player2,  bet);
@@ -39,23 +39,17 @@ public class Game {
             setPlayersMoney(player2, player, bet);
         }
     }
-
+*/
+/*
     private void setPlayersMoney(Player winner, Player looser, int bet) {
         winner.setMoney(winner.getMoney()+bet);
         looser.setMoney(looser.getMoney()-bet);
     }
-
+*/
+/*
     protected Player calculateWinner(Player player, Player player2) {
         Player winner = null;
-        /*int cardIndex = 0;
-        while ((player.getPlayerHand().size() <= 5) && (player2.getPlayerHand().size() <= 5)
-                && (player.getScore() <= 21)
-                && (player2.getScore() <= 21)){
 
-            player.addCard(deck.getDeck()[cardIndex]);
-            player2.addCard(deck.getDeck()[cardIndex+1]);
-            cardIndex += 2;
-        }*/
         if ((player.getPlayerHand().size() <= 5) && (player2.getPlayerHand().size() <= 5)
                 && (player.getScore() <= 21)
                 && (player2.getScore() <= 21)){
@@ -84,6 +78,18 @@ public class Game {
 
         return winner;
     }
+*/
+
+    protected void setPlayersMoney(Player winner, int bet){
+        if (winner.equals(player1)) {
+            player1.setMoney(player1.getMoney() + bet);
+            player2.setMoney(player2.getMoney() - bet);
+        }else{
+            player1.setMoney(player1.getMoney() - bet);
+            player2.setMoney(player2.getMoney() + bet);
+        }
+    }
+
 
     public void nextCard(Player player) {
         player.addCard(listDeck.get(0));
@@ -96,7 +102,7 @@ public class Game {
 
     public void startGame(Player player1, Player player2, int bet) {
         if(!hasMoney(player1,bet) || !hasMoney(player2,bet)){
-            throw new NotEnoughtMonyException();
+            throw new NotEnoughtMoneyException();
         }
         this.player1 = player1;
         this.player2 = player2;
@@ -115,22 +121,35 @@ public class Game {
     }
 
     private void calculateWinner(Player player) {
-        if(player.getScore() == 22 && player.getPlayerHand().size() == 2){
+        if (player1.isStopped() && player2.isStopped()){
             winner = player;
             nextPlayer = null;
+        }else{
+            if(player.getScore() == 22 && player.getPlayerHand().size() == 2){
+                winner = player;
+                nextPlayer = null;
+            }else if ((player.getPlayerHand().size() > 5) || (player.getScore() > 21)){
+                winner = getNextPlayer();
+                nextPlayer = null;
+            }
         }
     }
 
     private void setNextPlayer(Player player) {
-        if(player1.isStopped()){
-            nextPlayer = player2;
-        }else{
-            nextPlayer = player1;
+        if (player1.isStopped()){
+            nextPlayer = (player2.getPlayerHand().size() > 5) ? player1 : player2;
+        }else if (player2.isStopped()){
+            nextPlayer = (player1.getPlayerHand().size() > 5) ? player2 : player1;
         }
-        if(player.equals(player1)){
-            nextPlayer = player2;
-        }else{
-            nextPlayer = player1;
+        if (!player1.isStopped() && !player2.isStopped()) {
+            if (player.equals(player1)) {
+                nextPlayer = player2;
+            } else {
+                nextPlayer = player1;
+            }
+        }
+        if (player1.isStopped() && player2.isStopped()){
+            nextPlayer = (player1.getScore() > player2.getScore()) ? player1 : player2;
         }
     }
 
@@ -148,8 +167,15 @@ public class Game {
     public void stopGame(Player player) {
         if(player.getScore() < 14)
             throw new PlayerCanNotStopUnderScore14Exception();
+
         player.stopGame();
-        setNextPlayer(player);
+        if (player1.isStopped() && player2.isStopped()){
+            calculateWinner(player);
+        }else {
+            setNextPlayer(player);
+        }
+        /*player.stopGame();
+        setNextPlayer(player);*/
     }
 
     public boolean isSopped(Player player) {

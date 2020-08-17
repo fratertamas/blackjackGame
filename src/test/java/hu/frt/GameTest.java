@@ -1,10 +1,8 @@
 package hu.frt;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +20,7 @@ public class GameTest {
         int bet = 1000;
         game.startGame(player1,player2,bet);
     }
-
+/*
     @Test
     public void testCalculateWinnerPlayerWithTwoAces() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
@@ -35,14 +33,15 @@ public class GameTest {
 
         assertEquals(testPlayer, game.calculateWinner(testPlayer, testDealer));
     }
+*/
 
     @Test
-    public void testBet() throws Exception{
+    public void testBet(){
         Player testPlayer = new Player("Gyula", 2000);
         int bet = 100;
         assertTrue(game.hasMoney(testPlayer, bet));
     }
-
+/*
     @Test
     public void getWinnerNameAndMoneyWithTwoAces() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
@@ -57,7 +56,8 @@ public class GameTest {
         assertEquals(testPlayer, game.getWinner(testPlayer, testDealer, bet));
         assertEquals(3000,testPlayer.getMoney());
     }
-
+*/
+/*
     @Test
     public void testPlayerScoreMoreThen21() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
@@ -72,7 +72,8 @@ public class GameTest {
 
         assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
     }
-
+*/
+/*
     @Test
     public void testPlayerHandSizeMoreThenFive() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
@@ -90,7 +91,8 @@ public class GameTest {
 
         assertEquals(testDealer, game.getWinner(testPlayer, testDealer, bet));
     }
-
+*/
+/*
     @Test
     public void testPlayerMoney() throws Exception{
         Player testPlayer = new Player("Gyula", 2000);
@@ -110,8 +112,8 @@ public class GameTest {
         assertEquals(4000, testDealer.getMoney());
         assertEquals(1000, testPlayer.getMoney());
     }
-
-    @Test(expected = NotEnoughtMonyException.class)
+*/
+    @Test(expected = NotEnoughtMoneyException.class)
     public void startGameWith2PlayerWithoutEnoughtMoneyTest(){
         Player player1 = new Player("Gyula", 200);
         Player player2 = new Player("Dealer", 3000);
@@ -225,4 +227,111 @@ public class GameTest {
         assertEquals(player2, game.getNextPlayer());
     }
 
+    @Test
+    public void player2WinWhenBothPlayerStopTest(){
+        game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
+        game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.KING));
+        game.listDeck.set(2, new Card(SuitOfCard.HEARTS,ValueOfCard.OBER));
+        game.listDeck.set(3, new Card(SuitOfCard.ACORNS,ValueOfCard.ACE));
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.stopGame(player1);
+        game.stopGame(player2);
+
+        assertTrue(game.isSopped(player1));
+        assertTrue(game.isSopped(player2));
+        assertNull(game.getNextPlayer());
+        assertEquals(player2, game.getWinner());
+    }
+
+    @Test
+    public void playerWinnerWhenPlayerScoreGreaterThan21Test(){
+        game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
+        game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.UNTER));
+        game.listDeck.set(2, new Card(SuitOfCard.HEARTS,ValueOfCard.UNTER));
+        game.listDeck.set(3, new Card(SuitOfCard.ACORNS,ValueOfCard.UNTER));
+        game.listDeck.set(4, new Card(SuitOfCard.BELLS, ValueOfCard.TEN));
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+
+        assertNotNull(game.getWinner());
+        assertEquals(player2,game.getWinner());
+        assertNull(game.getNextPlayer());
+    }
+
+    @Test
+    public void player1WinnerANDCardInPlayer2HandHasMore5Cards(){
+        game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
+        game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.UNTER));
+        game.listDeck.set(2, new Card(SuitOfCard.HEARTS,ValueOfCard.KING));
+        game.listDeck.set(3, new Card(SuitOfCard.ACORNS,ValueOfCard.UNTER));
+        game.listDeck.set(4, new Card(SuitOfCard.BELLS, ValueOfCard.UNTER));
+        game.listDeck.set(5, new Card(SuitOfCard.HEARTS, ValueOfCard.UNTER));
+        game.listDeck.set(6, new Card(SuitOfCard.HEARTS, ValueOfCard.OBER));
+        game.listDeck.set(7, new Card(SuitOfCard.BELLS, ValueOfCard.OBER));
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.stopGame(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player2);
+        game.pullACard(player2);
+        game.pullACard(player2);
+
+        assertEquals(2, player1.getPlayerHand().size());
+        assertEquals(6, player2.getPlayerHand().size());
+        assertEquals(player1, game.getWinner());
+    }
+
+    @Test
+    public void player2WinnerANDCardInPlayer1HandHasMore5Cards(){
+        game.listDeck.set(0, new Card(SuitOfCard.LEAVES,ValueOfCard.UNTER));
+        game.listDeck.set(1, new Card(SuitOfCard.LEAVES,ValueOfCard.ACE));
+        game.listDeck.set(2, new Card(SuitOfCard.ACORNS,ValueOfCard.UNTER));
+        game.listDeck.set(3, new Card(SuitOfCard.HEARTS,ValueOfCard.KING));
+        game.listDeck.set(4, new Card(SuitOfCard.BELLS, ValueOfCard.UNTER));
+        game.listDeck.set(5, new Card(SuitOfCard.HEARTS, ValueOfCard.UNTER));
+        game.listDeck.set(6, new Card(SuitOfCard.HEARTS, ValueOfCard.OBER));
+        game.listDeck.set(7, new Card(SuitOfCard.BELLS, ValueOfCard.OBER));
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player2);
+
+        game.pullACard(player1);
+        game.stopGame(player2);
+
+        game.pullACard(player1);
+        game.pullACard(player1);
+        game.pullACard(player1);
+
+        assertEquals(2, player2.getPlayerHand().size());
+        assertEquals(6, player1.getPlayerHand().size());
+        assertEquals(player2, game.getWinner());
+    }
+
+    @Test
+    public void playersMoneyWithBetTest(){
+        game.setPlayersMoney(player1, 1000);
+        assertEquals(3000, player1.getMoney());
+        assertEquals(2000, player2.getMoney());
+    }
 }
